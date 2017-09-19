@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 namespace TheWorld.Models
@@ -22,6 +23,34 @@ namespace TheWorld.Models
         {
             _logger.LogInformation("Getting all trips from the database");
             return _context.Trips.ToList();
+        }
+
+        public void AddTrip(Trip trip)
+        {
+            _context.Add(trip);
+        }
+
+        public async Task<bool> SaveChangesAsync()
+        {
+            return (await _context.SaveChangesAsync()) > 0;
+        }
+
+        public Trip GetTripByName(string tripName)
+        {
+            return _context.Trips
+                .Include(t => t.Stops)
+                .FirstOrDefault(t => t.Name.Equals(tripName, StringComparison.CurrentCultureIgnoreCase));
+        }
+
+        public void AddStop(string tripName, Stop stop)
+        {
+            var trip = GetTripByName(tripName);
+
+            if (trip != null)
+            {
+                trip.Stops.Add(stop);
+                _context.Add(stop);
+            }
         }
     }
 }

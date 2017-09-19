@@ -31,6 +31,7 @@ namespace TheWorld.Controllers.Web
             try
             {
                 var data = _repository.GetAllTrips();
+                _logger.LogError($"TRIPS ---------------------------------------- {data}");
                 return View(data);
             }
             catch (Exception ex)

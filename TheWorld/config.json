@@ -3,6 +3,9 @@
     "WorldContextConnection": "Server=(localdb)\\MSSQLLocalDB;Database=TheWorldDb;Trusted_Connection=True;MultipleActiveResultSets=true"
   },
   "MailSettings": {
-    "ToAddress": "ccasson@aurachicago.com" 
-  }
+    "ToAddress": "ccasson@aurachicago.com"
+  },
+  "Keys": {
+    "BingKey": "DONTPUTINSOURCECONTROL" 
+  } 
 }
