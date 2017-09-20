@@ -9,7 +9,7 @@ using TheWorld.Models;
 using TheWorld.Services;
 using TheWorld.ViewModels;
 
-namespace TheWorld.Controllers
+namespace TheWorld.Controllers.Api
 {
     [Route("/api/trips/{tripName}/stops")]
     public class StopsController : Controller
