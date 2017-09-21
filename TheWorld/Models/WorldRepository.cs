@@ -42,15 +42,31 @@ namespace TheWorld.Models
                 .FirstOrDefault(t => t.Name.Equals(tripName, StringComparison.CurrentCultureIgnoreCase));
         }
 
-        public void AddStop(string tripName, Stop stop)
+        public Trip GetUserTripByName(string tripName, string username)
         {
-            var trip = GetTripByName(tripName);
+            return _context.Trips
+                .Include(t => t.Stops)
+                .FirstOrDefault(t => t.Name.Equals(tripName, StringComparison.CurrentCultureIgnoreCase)
+                    && t.UserName.Equals(username, StringComparison.CurrentCultureIgnoreCase));
+        }
+
+        public void AddStop(string tripName, Stop stop, string username)
+        {
+            var trip = GetUserTripByName(tripName, username);
 
             if (trip != null)
             {
                 trip.Stops.Add(stop);
                 _context.Add(stop);
             }
+        }
+
+        public IEnumerable<Trip> GetTripsByUsername(string username)
+        {
+            return _context.Trips
+                .Include(t => t.Stops)
+                .Where(t => t.UserName.Equals(username, StringComparison.CurrentCultureIgnoreCase))
+                .ToList();
         }
     }
 }
