@@ -1,0 +1,1 @@
+Javacript libraries get populated here by bower. There's no need to commit anything in this folder.

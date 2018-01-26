@@ -16,15 +16,11 @@ namespace TheWorld.Controllers.Web
     {
         private readonly IMailService _mailService;
         private IConfigurationRoot _config;
-        private IWorldRepository _repository;
-        private ILogger<AppController> _logger;
 
-        public AppController(IMailService mailService, IConfigurationRoot config, IWorldRepository repository, ILogger<AppController> logger)
+        public AppController(IMailService mailService, IConfigurationRoot config)
         {
             _mailService = mailService;
             _config = config;
-            _repository = repository;
-            _logger = logger;
         }
 
         public IActionResult Index()
@@ -35,8 +31,7 @@ namespace TheWorld.Controllers.Web
         [Authorize]
         public IActionResult Trips()
         {
-            var trips = _repository.GetAllTrips();
-            return View(trips);
+            return View();
         }
 
         public IActionResult Contact()
